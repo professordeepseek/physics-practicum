@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Цифровые помощники учителя физики — лабораторный практикум</title>
+<meta name="description" content="Лабораторный практикум по использованию ИИ в работе учителя физики: 16 лабораторных работ, 11 семинаров, инструкции и библиотека промптов.">
+<meta name="theme-color" content="#1b3557">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================== токены ============================== */
+:root{
+  --paper:#f4f6f9;
+  --card:#ffffff;
+  --ink:#17212e;
+  --ink-soft:#4d5b6d;
+  --ink-faint:#7d8a9b;
+  --blue:#2c5282;
+  --blue-deep:#1b3557;
+  --brass:#8a6318;
+  --rule:#d2d9e3;
+  --rule-soft:#e6eaf0;
+  --sans:"PT Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --serif:"PT Serif",Georgia,"Times New Roman",serif;
+  --pad:clamp(16px,4vw,28px);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#111721;
+    --card:#182029;
+    --ink:#e4eaf2;
+    --ink-soft:#a9b5c4;
+    --ink-faint:#7e8b9b;
+    --blue:#89aede;
+    --blue-deep:#0e141c;
+    --brass:#cfa44e;
+    --rule:#2c3744;
+    --rule-soft:#222c38;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font:17px/1.6 var(--sans);
+}
+a{color:var(--blue);text-decoration-thickness:1px;text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 var(--pad)}
+.prose{max-width:62ch}
+.skip{position:absolute;left:-9999px}
+.skip:focus{position:static;display:inline-block;margin:8px;color:#fff}
+
+/* ============================== шапка ============================== */
+.top{background:var(--blue-deep);color:#eef2f8;padding:22px 0 30px}
+.top a{color:#cddcf0}
+.crest{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.crest img{height:42px;width:auto;display:block}
+.crest span{font:400 14px/1.3 var(--sans);color:#a9bdd8;max-width:22ch}
+.top h1{
+  font:700 clamp(28px,5.2vw,46px)/1.08 var(--serif);
+  margin:0 0 10px;letter-spacing:-.4px;
+}
+.top p.lede{margin:0;color:#b9cae0;font-size:clamp(15px,2.2vw,18px);max-width:46ch}
+
+/* ============================== шкала практикума ============================== */
+.route{margin-top:34px}
+.route h2{
+  font:400 13px/1 var(--sans);color:#8fa6c4;margin:0 0 14px;
+  letter-spacing:.02em;
+}
+.legs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.leg__ticks{display:grid;grid-template-columns:repeat(4,1fr)}
+.tick{
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  padding:4px 0 0;text-decoration:none;color:#dce6f4;
+}
+.tick b{font:400 15px/1 var(--serif);color:#e8eef7}
+.tick i{
+  display:block;width:1.5px;height:13px;background:#5f7fa8;
+  transform-origin:top;animation:grow .5s cubic-bezier(.2,.7,.3,1) backwards;
+}
+.tick:nth-child(1) i{height:19px;background:#84a5cd}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.tick:hover b,.tick:focus-visible b{color:var(--brass)}
+.tick:hover i{background:var(--brass)}
+.leg__bar{height:2px;background:#41618b;margin-top:-1px}
+.leg__label{
+  display:block;margin-top:9px;font:400 13px/1.35 var(--sans);color:#9db4d1;
+}
+.leg__label b{display:block;color:#e2eaf5;font-weight:400;font-family:var(--serif)}
+@media (max-width:760px){
+  .legs{grid-template-columns:1fr;gap:0}
+  .leg{border-top:1px solid #2e4a6d;padding:12px 0}
+  .leg:last-child{border-bottom:1px solid #2e4a6d}
+  .leg__ticks{grid-template-columns:repeat(8,minmax(0,44px));gap:0;margin-top:10px}
+  .leg__bar{display:none}
+  .leg__label{margin:0;order:-1}
+  .leg{display:flex;flex-direction:column}
+  .tick i{height:11px}
+  .tick:nth-child(1) i{height:11px;background:#5f7fa8}
+}
+@media (prefers-reduced-motion: reduce){
+  .tick i{animation:none}
+  *{transition:none!important}
+}
+
+/* ============================== панель навигации ============================== */
+.bar{
+  position:sticky;top:0;z-index:20;background:var(--card);
+  border-bottom:1px solid var(--rule);
+}
+.bar__in{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 0}
+.bar nav{display:flex;gap:2px;flex-wrap:wrap;flex:1 1 auto}
+.bar nav a{
+  display:inline-flex;align-items:baseline;gap:6px;padding:7px 10px;
+  border-radius:4px;text-decoration:none;color:var(--ink-soft);font-size:15px;
+}
+.bar nav a:hover{background:var(--rule-soft);color:var(--ink)}
+.bar nav a em{font-style:normal;font-family:var(--serif);color:var(--brass);font-size:13px}
+.find{position:relative;flex:0 1 260px}
+.find input{
+  width:100%;padding:9px 32px 9px 12px;font:15px var(--sans);
+  color:var(--ink);background:var(--paper);
+  border:1px solid var(--rule);border-radius:4px;
+}
+.find input::placeholder{color:var(--ink-faint)}
+.find button{
+  position:absolute;right:4px;top:50%;transform:translateY(-50%);
+  width:26px;height:26px;border:0;border-radius:4px;cursor:pointer;
+  background:transparent;color:var(--ink-faint);font-size:18px;line-height:1;
+}
+.find button:hover{background:var(--rule-soft);color:var(--ink)}
+.find button[hidden]{display:none}
+
+/* ============================== разделы страницы ============================== */
+main{padding:8px 0 64px}
+.block{padding-top:46px;scroll-margin-top:64px}
+.row,.prompt{scroll-margin-top:70px}
+.block__head{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.block h2{font:700 clamp(22px,3.4vw,30px)/1.15 var(--serif);margin:0;letter-spacing:-.2px}
+.block__note{margin:0 0 20px;color:var(--ink-soft);max-width:60ch;font-size:15.5px}
+
+/* фильтры */
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 22px}
+.chips button{
+  padding:6px 12px;font:15px var(--sans);cursor:pointer;
+  background:transparent;color:var(--ink-soft);
+  border:1px solid var(--rule);border-radius:100px;
+}
+.chips button:hover{border-color:var(--blue);color:var(--ink)}
+.chips button[aria-pressed=true]{
+  background:var(--blue);border-color:var(--blue);color:#fff;
+}
+@media (prefers-color-scheme: dark){
+  .chips button[aria-pressed=true]{color:#0e141c;font-weight:700}
+}
+
+/* реестр */
+.reg{border-top:1px solid var(--rule)}
+.row{
+  display:grid;grid-template-columns:56px 1fr;gap:0 18px;
+  padding:20px 0;border-bottom:1px solid var(--rule-soft);
+}
+.row[hidden]{display:none}
+.row__n{
+  font:400 27px/1 var(--serif);color:var(--brass);
+  padding-top:2px;font-variant-numeric:lining-nums;
+}
+.row--plain{grid-template-columns:1fr}
+.row h3{font:700 19px/1.3 var(--sans);margin:0 0 4px}
+.row h3 a{color:var(--ink);text-decoration:none}
+.row h3 a:hover{color:var(--blue);text-decoration:underline}
+.row__goal{margin:0;color:var(--ink-soft);max-width:58ch}
+.facts{margin:12px 0 0;display:grid;gap:5px 22px;grid-template-columns:1fr}
+@media (min-width:640px){.facts{grid-template-columns:1fr 1fr}}
+.facts>div{display:flex;gap:8px;font-size:15px;line-height:1.45}
+.facts dt{flex:0 0 92px;color:var(--ink-faint)}
+.facts dd{margin:0;color:var(--ink)}
+.facts a{text-decoration:none;border-bottom:1px solid var(--rule)}
+.facts a:hover{border-color:var(--blue)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{
+  display:inline-block;padding:7px 14px;border-radius:4px;font-size:15px;
+  text-decoration:none;cursor:pointer;border:1px solid var(--blue);
+  background:var(--blue);color:#fff;font-family:var(--sans);
+}
+.btn:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+@media (prefers-color-scheme: dark){
+  .btn{color:#0e141c;font-weight:700}
+  .btn:hover{background:#a8c5ea;border-color:#a8c5ea}
+}
+.btn--ghost{background:transparent;color:var(--blue);border-color:var(--rule)}
+.btn--ghost:hover{background:var(--rule-soft);color:var(--ink);border-color:var(--blue)}
+@media (prefers-color-scheme: dark){
+  .btn--ghost{color:var(--blue);font-weight:400}
+  .btn--ghost:hover{background:var(--rule-soft);color:var(--ink)}
+}
+.tag{
+  display:inline-block;padding:3px 9px;border-radius:100px;font-size:13.5px;
+  background:var(--rule-soft);color:var(--ink-soft);
+}
+
+/* инструменты — компактная сетка */
+.grid{display:grid;gap:0;border-top:1px solid var(--rule)}
+@media (min-width:700px){.grid{grid-template-columns:1fr 1fr;column-gap:36px}}
+.grid .row{padding:16px 0}
+
+/* промпты */
+.prompt{padding:22px 0;border-bottom:1px solid var(--rule-soft)}
+.prompt[hidden]{display:none}
+.prompt__head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.prompt h3{font:700 19px/1.3 var(--sans);margin:0}
+.prompt__note{margin:4px 0 0;color:var(--ink-soft);font-size:15px}
+.code{
+  position:relative;margin-top:13px;background:var(--card);
+  border:1px solid var(--rule);border-left:3px solid var(--brass);
+  border-radius:0 4px 4px 0;
+}
+.code pre{
+  margin:0;padding:14px 16px;font:14.5px/1.6 ui-monospace,"Cascadia Mono",Consolas,monospace;
+  white-space:pre-wrap;word-break:break-word;color:var(--ink);
+}
+.code__top{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:8px 10px 8px 16px;border-bottom:1px solid var(--rule-soft);
+  font-size:13.5px;color:var(--ink-faint);
+}
+.why{
+  margin:12px 0 0;padding-left:14px;border-left:2px solid var(--rule);
+  color:var(--ink-soft);font-size:15px;max-width:62ch;
+}
+
+/* пусто */
+.empty{padding:36px 0 10px;color:var(--ink-soft)}
+.empty p{margin:0 0 14px;max-width:52ch}
+
+/* о практикуме */
+.about{
+  margin-top:52px;padding:26px var(--pad);background:var(--card);
+  border:1px solid var(--rule);border-radius:6px;
+}
+.about h2{font:700 21px/1.2 var(--serif);margin:0 0 14px}
+.about dl{margin:0;display:grid;gap:10px 24px}
+@media (min-width:700px){.about dl{grid-template-columns:1fr 1fr}}
+.about div{display:flex;gap:10px;font-size:15.5px}
+.about dt{flex:0 0 108px;color:var(--ink-faint)}
+.about dd{margin:0}
+
+/* подвал */
+footer{border-top:1px solid var(--rule);padding:26px 0 40px;color:var(--ink-faint);font-size:14.5px}
+footer p{margin:0 0 6px;max-width:64ch}
+
+/* всплывающее подтверждение */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(14px);
+  background:var(--blue-deep);color:#fff;padding:10px 18px;border-radius:100px;
+  font-size:15px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:50;
+}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<a class="skip" href="#labs">Перейти к лабораторным работам</a>
+
+<header class="top">
+  <div class="wrap">
+    <div class="crest">
+      <img id="crest" alt="" onerror="this.style.display='none'">
+      <span id="org"></span>
+    </div>
+    <h1 id="h1"></h1>
+    <p class="lede" id="lede"></p>
+
+    <section class="route" aria-label="Маршрут практикума">
+      <h2>Маршрут практикума: четыре раздела, шестнадцать работ</h2>
+      <div class="legs" id="legs"></div>
+    </section>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap bar__in">
+    <nav id="nav" aria-label="Разделы сайта"></nav>
+    <div class="find">
+      <label class="skip" for="q">Поиск по практикуму</label>
+      <input id="q" type="search" placeholder="Найти: задачи, тест, публикация…" autocomplete="off">
+      <button id="qclear" type="button" hidden aria-label="Очистить поиск">&times;</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div id="empty" class="empty" hidden>
+    <p id="emptyText"></p>
+    <button class="btn btn--ghost" id="emptyReset" type="button">Показать всё</button>
+  </div>
+
+  <section class="block" id="labs">
+    <div class="block__head"><h2>Лабораторные работы</h2></div>
+    <p class="block__note">У каждой работы есть цифровой продукт — то, что сдаётся по итогу. Методичка открывается в PDF.</p>
+    <div class="chips" id="labChips"></div>
+    <div class="reg" id="labList"></div>
+  </section>
+
+  <section class="block" id="seminars">
+    <div class="block__head"><h2>Семинары</h2></div>
+    <p class="block__note">Семинары готовят к работам и разбирают их результаты. Номера работ — ссылки.</p>
+    <div class="reg" id="semList"></div>
+  </section>
+
+  <section class="block" id="prompts">
+    <div class="block__head"><h2>Библиотека промптов</h2></div>
+    <p class="block__note">Заготовки запросов. Квадратные скобки заменяются на свои данные. Где есть второй шаг — он обязателен: первый запрос даёт результат, второй его проверяет.</p>
+    <div class="chips" id="promptChips"></div>
+    <div id="promptList"></div>
+  </section>
+
+  <section class="block" id="instructions">
+    <div class="block__head"><h2>Инструкции</h2></div>
+    <p class="block__note">Пошаговые руководства по сервисам и публикации.</p>
+    <div class="chips" id="insChips"></div>
+    <div class="reg" id="insList"></div>
+  </section>
+
+  <section class="block" id="tools">
+    <div class="block__head"><h2>Инструменты</h2></div>
+    <p class="block__note">Сервисы, которые используются в работах. Все доступны без оплаты, хотя бы в ограниченном режиме.</p>
+    <div class="chips" id="toolChips"></div>
+    <div class="grid" id="toolList"></div>
+  </section>
+
+  <section class="block" id="templates">
+    <div class="block__head"><h2>Шаблоны</h2></div>
+    <p class="block__note">Готовые заготовки, которые студент дополняет своим содержанием.</p>
+    <div class="reg" id="tplList"></div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>О практикуме</h2>
+    <dl>
+      <div><dt>Дисциплина</dt><dd id="disc"></dd></div>
+      <div><dt>Автор</dt><dd id="author"></dd></div>
+      <div><dt>Объём</dt><dd id="volume"></dd></div>
+      <div><dt>Итоговый проект</dt><dd>Персональный сайт-портфолио учителя физики</dd></div>
+    </dl>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p id="foot1"></p>
+    <p id="foot2"></p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var D = window.PRACTICUM;
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){
+    return String(s == null ? "" : s)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  };
+
+  if (!D) {
+    document.querySelector("main").innerHTML =
+      '<div class="empty"><p>Содержание не загрузилось: рядом с index.html должен лежать файл data.js. ' +
+      'Проверьте, что он загружен в тот же каталог и называется именно так.</p></div>';
+    return;
+  }
+
+  /* ---------- шапка ---------- */
+  $("h1").textContent = D.meta.title;
+  $("lede").textContent = D.meta.subtitle;
+  $("org").textContent = D.meta.org;
+  $("disc").textContent = D.meta.discipline;
+  $("author").textContent = D.meta.author;
+  $("crest").src = D.meta.logo;
+  $("crest").alt = D.meta.org;
+  document.title = D.meta.title + " — лабораторный практикум";
+  $("volume").textContent = D.labs.length + " лабораторных работ, " +
+    D.seminars.length + " семинаров, " + D.instructions.length + " инструкций";
+  $("foot1").textContent = "© " + D.meta.year + " " + D.meta.title + ". " + D.meta.org + ".";
+  $("foot2").textContent = D.meta.footerNote;
+
+  /* ---------- взаимные ссылки работа ↔ семинар ---------- */
+  var semLabs = {};
+  D.seminars.forEach(function(s){ semLabs[s.n] = (s.labs || []).slice(); });
+  D.labs.forEach(function(l){
+    (l.seminars || []).forEach(function(sn){
+      if (!semLabs[sn]) semLabs[sn] = [];
+      if (semLabs[sn].indexOf(l.n) < 0) semLabs[sn].push(l.n);
+    });
+  });
+  Object.keys(semLabs).forEach(function(k){ semLabs[k].sort(function(a,b){ return a-b; }); });
+
+  var pdfOf = function(o){ return (o.pdfLocal && o.pdfLocal.trim()) ? o.pdfLocal : o.pdf; };
+  var linkList = function(nums, prefix, label){
+    return nums.map(function(n){
+      return '<a href="#' + prefix + n + '">' + label + n + '</a>';
+    }).join(", ");
+  };
+  var sectionTitle = function(n){
+    var s = D.sections.filter(function(x){ return x.n === n; })[0];
+    return s ? s.title : "Раздел " + n;
+  };
+
+  /* ---------- маршрут ---------- */
+  $("legs").innerHTML = D.sections.map(function(sec){
+    var mine = D.labs.filter(function(l){ return l.section === sec.n; });
+    var ticks = mine.map(function(l, i){
+      return '<a class="tick" href="#lab' + l.n + '" title="' + esc(l.title) + '" ' +
+             'style="animation-delay:' + (i * 40 + (sec.n - 1) * 160) + 'ms">' +
+             '<b>' + l.n + '</b><i style="animation-delay:' + (i * 40 + (sec.n - 1) * 160) + 'ms"></i></a>';
+    }).join("");
+    return '<div class="leg">' +
+      '<div class="leg__ticks">' + ticks + '</div>' +
+      '<div class="leg__bar"></div>' +
+      '<span class="leg__label">Раздел ' + sec.n + '<b>' + esc(sec.title) + '</b></span>' +
+      '</div>';
+  }).join("");
+
+  /* ---------- лабораторные ---------- */
+  $("labList").innerHTML = D.labs.map(function(l){
+    var pdf = pdfOf(l);
+    var sems = (l.seminars && l.seminars.length)
+      ? '<div><dt>Семинары</dt><dd>' + linkList(l.seminars, "sem", "№") + '</dd></div>' : "";
+    return '<article class="row" id="lab' + l.n + '" data-sec="' + l.section + '" data-find="' +
+      esc([l.n, l.title, l.goal, (l.tools||[]).join(" "), l.product, sectionTitle(l.section)].join(" ").toLowerCase()) + '">' +
+      '<div class="row__n">' + l.n + '</div>' +
+      '<div class="row__body">' +
+        '<h3><a href="#lab' + l.n + '">' + esc(l.title) + '</a></h3>' +
+        '<p class="row__goal">' + esc(l.goal) + '</p>' +
+        '<dl class="facts">' +
+          '<div><dt>Продукт</dt><dd>' + esc(l.product) + '</dd></div>' +
+          '<div><dt>Инструменты</dt><dd>' + esc((l.tools||[]).join(", ") || "—") + '</dd></div>' +
+          '<div><dt>Раздел</dt><dd>' + sec2(l.section) + '</dd></div>' +
+          sems +
+        '</dl>' +
+        (l.desc ? '<div class="why">' + l.desc + '</div>' : "") +
+        '<div class="acts">' +
+          (pdf ? '<a class="btn" href="' + esc(pdf) + '">Методичка PDF</a>' : "") +
+          '<button class="btn btn--ghost" type="button" data-link="lab' + l.n + '">Ссылка на работу</button>' +
+        '</div>' +
+      '</div></article>';
+  }).join("");
+
+  function sec2(n){ return esc(n + " — " + sectionTitle(n)); }
+
+  /* ---------- семинары ---------- */
+  $("semList").innerHTML = D.seminars.map(function(s){
+    var labs = semLabs[s.n] || [];
+    return '<article class="row" id="sem' + s.n + '" data-find="' +
+      esc([s.n, s.title, s.note, s.form].join(" ").toLowerCase()) + '">' +
+      '<div class="row__n">' + s.n + '</div>' +
+      '<div class="row__body">' +
+        '<h3>' + esc(s.title) + '</h3>' +
+        '<p class="row__goal">' + esc(s.note) + '</p>' +
+        '<dl class="facts">' +
+          '<div><dt>Форма</dt><dd>' + esc(s.form) + '</dd></div>' +
+          '<div><dt>' + esc(s.role) + '</dt><dd>' +
+            (labs.length ? linkList(labs, "lab", "№") : "—") + '</dd></div>' +
+        '</dl>' +
+      '</div></article>';
+  }).join("");
+
+  /* ---------- промпты ---------- */
+  $("promptList").innerHTML = D.prompts.map(function(p, i){
+    var step2 = p.step2 ? (
+      '<div class="code">' +
+        '<div class="code__top"><span>Шаг 2. Проверка</span>' +
+        '<button class="btn btn--ghost" type="button" data-copy="p' + i + 'b">Скопировать</button></div>' +
+        '<pre id="p' + i + 'b">' + esc(p.step2) + '</pre>' +
+      '</div>') : "";
+    return '<article class="prompt" data-cat="' + esc(p.cat) + '" data-find="' +
+      esc([p.title, p.note, p.cat, p.text, p.step2 || ""].join(" ").toLowerCase()) + '">' +
+      '<div class="prompt__head"><h3>' + esc(p.title) + '</h3><span class="tag">' + esc(p.cat) + '</span></div>' +
+      '<p class="prompt__note">' + esc(p.note) + '</p>' +
+      '<div class="code">' +
+        '<div class="code__top"><span>' + (p.step2 ? "Шаг 1. Запрос" : "Запрос") + '</span>' +
+        '<button class="btn btn--ghost" type="button" data-copy="p' + i + 'a">Скопировать</button></div>' +
+        '<pre id="p' + i + 'a">' + esc(p.text) + '</pre>' +
+      '</div>' + step2 +
+      (p.why ? '<p class="why">' + esc(p.why) + '</p>' : "") +
+      '</article>';
+  }).join("");
+
+  /* ---------- инструкции ---------- */
+  $("insList").innerHTML = D.instructions.map(function(o){
+    return '<article class="row" data-cat="' + esc(o.cat) + '" data-find="' +
+      esc([o.n, o.title, o.note, o.cat, o.rel].join(" ").toLowerCase()) + '">' +
+      '<div class="row__n">' + o.n + '</div>' +
+      '<div class="row__body">' +
+        '<h3>' + esc(o.title) + '</h3>' +
+        '<p class="row__goal">' + esc(o.note) + '</p>' +
+        '<dl class="facts"><div><dt>Нужна для</dt><dd>' + esc(o.rel) + '</dd></div></dl>' +
+        '<div class="acts"><a class="btn" href="' + esc(pdfOf(o)) + '">Скачать PDF</a></div>' +
+      '</div></article>';
+  }).join("");
+
+  /* ---------- инструменты ---------- */
+  $("toolList").innerHTML = D.tools.map(function(t){
+    return '<article class="row row--plain" data-cat="' + esc(t.cat) + '" data-find="' +
+      esc([t.name, t.note, t.cat].join(" ").toLowerCase()) + '">' +
+      '<div class="row__body">' +
+        '<h3><a href="' + esc(t.url) + '" rel="noopener">' + esc(t.name) + '</a></h3>' +
+        '<p class="row__goal">' + esc(t.note) + '</p>' +
+        '<dl class="facts"><div><dt>Назначение</dt><dd>' + esc(t.cat) + '</dd></div></dl>' +
+      '</div></article>';
+  }).join("");
+
+  /* ---------- шаблоны ---------- */
+  $("tplList").innerHTML = D.templates.map(function(t){
+    return '<article class="row row--plain" data-find="' +
+      esc([t.title, t.note, t.rel].join(" ").toLowerCase()) + '">' +
+      '<div class="row__body">' +
+        '<h3>' + esc(t.title) + '</h3>' +
+        '<p class="row__goal">' + esc(t.note) + '</p>' +
+        '<dl class="facts"><div><dt>Нужен для</dt><dd>' + esc(t.rel) + '</dd></div></dl>' +
+        '<div class="acts"><a class="btn" href="' + esc(t.url) + '">' + esc(t.action) + '</a></div>' +
+      '</div></article>';
+  }).join("");
+
+  /* ---------- фильтры ---------- */
+  function uniq(a){ return a.filter(function(v,i){ return a.indexOf(v) === i; }); }
+
+  function buildChips(host, values, attr, scope){
+    var all = ["Все"].concat(values);
+    host.innerHTML = all.map(function(v, i){
+      return '<button type="button" aria-pressed="' + (i === 0) + '" data-val="' + esc(v) + '">' +
+        esc(v) + '</button>';
+    }).join("");
+    host.addEventListener("click", function(e){
+      var b = e.target.closest("button");
+      if (!b) return;
+      Array.prototype.forEach.call(host.children, function(x){
+        x.setAttribute("aria-pressed", String(x === b));
+      });
+      host.dataset.active = b.dataset.val;
+      apply();
+    });
+    host.dataset.active = "Все";
+    host.dataset.attr = attr;
+    host.dataset.scope = scope;
+  }
+
+  buildChips($("labChips"), D.sections.map(function(s){ return "Раздел " + s.n; }), "sec", "#labList");
+  buildChips($("promptChips"), uniq(D.prompts.map(function(p){ return p.cat; })), "cat", "#promptList");
+  buildChips($("insChips"), uniq(D.instructions.map(function(o){ return o.cat; })), "cat", "#insList");
+  buildChips($("toolChips"), uniq(D.tools.map(function(t){ return t.cat; })), "cat", "#toolList");
+
+  /* ---------- поиск и показ ---------- */
+  var NAV = [
+    { id: "labs", label: "Лабораторные", sel: "#labList > *" },
+    { id: "seminars", label: "Семинары", sel: "#semList > *" },
+    { id: "prompts", label: "Промпты", sel: "#promptList > *" },
+    { id: "instructions", label: "Инструкции", sel: "#insList > *" },
+    { id: "tools", label: "Инструменты", sel: "#toolList > *" },
+    { id: "templates", label: "Шаблоны", sel: "#tplList > *" }
+  ];
+  $("nav").innerHTML = NAV.map(function(s){
+    return '<a href="#' + s.id + '" data-nav="' + s.id + '">' + s.label +
+      ' <em data-count="' + s.id + '"></em></a>';
+  }).join("");
+
+  var chipHosts = [$("labChips"), $("promptChips"), $("insChips"), $("toolChips")];
+
+  function apply(){
+    var q = $("q").value.trim().toLowerCase();
+    $("qclear").hidden = !q;
+
+    var total = 0;
+    NAV.forEach(function(s){
+      var items = document.querySelectorAll(s.sel);
+      var shown = 0;
+      Array.prototype.forEach.call(items, function(el){
+        var okText = !q || (el.dataset.find || "").indexOf(q) >= 0;
+        var okChip = true;
+        var host = chipHosts.filter(function(h){
+          return h && h.dataset.scope === s.sel.replace(" > *","");
+        })[0];
+        if (host && host.dataset.active !== "Все"){
+          var want = host.dataset.active;
+          if (host.dataset.attr === "sec"){
+            okChip = ("Раздел " + el.dataset.sec) === want;
+          } else {
+            okChip = el.dataset.cat === want;
+          }
+        }
+        var show = okText && okChip;
+        el.hidden = !show;
+        if (show) shown++;
+      });
+      total += shown;
+      var block = $(s.id);
+      block.hidden = (shown === 0);
+      var c = document.querySelector('[data-count="' + s.id + '"]');
+      if (c) c.textContent = shown;
+      var navLink = document.querySelector('[data-nav="' + s.id + '"]');
+      if (navLink) navLink.style.opacity = shown === 0 ? ".4" : "1";
+    });
+
+    var none = (total === 0);
+    $("empty").hidden = !none;
+    $("about").hidden = none;
+    if (none){
+      $("emptyText").textContent = q
+        ? "По запросу «" + $("q").value.trim() + "» ничего не нашлось. Попробуйте другое слово — например, «задачи», «тест», «публикация»."
+        : "Выбранные фильтры ничего не оставили.";
+    }
+  }
+
+  var t = null;
+  $("q").addEventListener("input", function(){
+    clearTimeout(t);
+    t = setTimeout(apply, 110);
+  });
+  $("qclear").addEventListener("click", function(){
+    $("q").value = "";
+    apply();
+    $("q").focus();
+  });
+  function resetAll(){
+    $("q").value = "";
+    chipHosts.forEach(function(h){
+      if (!h) return;
+      h.dataset.active = "Все";
+      Array.prototype.forEach.call(h.children, function(x, i){
+        x.setAttribute("aria-pressed", String(i === 0));
+      });
+    });
+    apply();
+  }
+  $("emptyReset").addEventListener("click", resetAll);
+
+  /* ---------- копирование ---------- */
+  var toast = $("toast"), toastTimer = null;
+  function say(msg){
+    toast.textContent = msg;
+    toast.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove("on"); }, 1900);
+  }
+  function copy(text, ok){
+    if (navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(function(){ say(ok); },
+        function(){ fallback(text, ok); });
+    } else { fallback(text, ok); }
+  }
+  function fallback(text, ok){
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); say(ok); }
+    catch(e){ say("Не удалось скопировать — выделите текст вручную"); }
+    document.body.removeChild(ta);
+  }
+  document.addEventListener("click", function(e){
+    var b = e.target.closest("[data-copy]");
+    if (b){
+      var pre = $(b.dataset.copy);
+      if (pre) copy(pre.textContent, "Промпт скопирован");
+      return;
+    }
+    var l = e.target.closest("[data-link]");
+    if (l){
+      var url = location.origin + location.pathname + "#" + l.dataset.link;
+      copy(url, "Ссылка скопирована — годится для QR-кода");
+    }
+  });
+
+  apply();
+
+  /* прямой переход по ссылке вида #lab7 при загрузке */
+  if (location.hash){
+    var target = document.querySelector(location.hash);
+    if (target) setTimeout(function(){ target.scrollIntoView(); }, 60);
+  }
+})();
+</script>
+</body>
+</html>
