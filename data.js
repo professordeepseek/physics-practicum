@@ -61,7 +61,6 @@ window.PRACTICUM = {
       product: "Технологическая карта урока",
       section: 1,
       seminars: [1, 2],
-      pdf: "https://disk.yandex.ru/i/E2ErddirC7l67g",
       pdfLocal: "pdf/lab-02.pdf",
       desc: ""
     },
