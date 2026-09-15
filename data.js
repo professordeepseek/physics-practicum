@@ -51,7 +51,7 @@ window.PRACTICUM = {
       section: 1,
       seminars: [1, 2],
       pdf: "https://disk.yandex.ru/i/xuOJ4WXZWLEsQA",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-01.pdf",
       desc: ""
     },
     {
