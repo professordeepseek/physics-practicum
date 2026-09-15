@@ -50,7 +50,6 @@ window.PRACTICUM = {
       product: "Мини-методичка «Библиотека идеальных промптов»",
       section: 1,
       seminars: [1, 2],
-      pdf: "https://disk.yandex.ru/i/xuOJ4WXZWLEsQA",
       pdfLocal: "pdf/lab-01.pdf",
       desc: ""
     },
