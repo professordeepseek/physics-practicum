@@ -62,7 +62,7 @@ window.PRACTICUM = {
       section: 1,
       seminars: [1, 2],
       pdf: "https://disk.yandex.ru/i/E2ErddirC7l67g",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-02.pdf",
       desc: ""
     },
     {
@@ -74,7 +74,7 @@ window.PRACTICUM = {
       section: 1,
       seminars: [3, 4, 5],
       pdf: "https://disk.yandex.ru/i/tJ4Wov-bpYsj3g",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-03.pdf",
       desc: ""
     },
     {
@@ -86,7 +86,7 @@ window.PRACTICUM = {
       section: 1,
       seminars: [2],
       pdf: "https://disk.yandex.ru/i/0DISsHe595-s9A",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-04.pdf",
       desc: ""
     },
     {
@@ -98,7 +98,7 @@ window.PRACTICUM = {
       section: 2,
       seminars: [5],
       pdf: "https://disk.yandex.ru/i/IDN_DrnEfDjssw",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-05.pdf",
       desc: ""
     },
     {
@@ -110,7 +110,7 @@ window.PRACTICUM = {
       section: 2,
       seminars: [6],
       pdf: "https://disk.yandex.ru/i/l89o-e08DQqt9w",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-06.pdf",
       desc: ""
     },
     {
@@ -122,7 +122,7 @@ window.PRACTICUM = {
       section: 2,
       seminars: [9],
       pdf: "https://disk.yandex.ru/i/jsD5N5inDlEHBA",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-07.pdf",
       desc: ""
     },
     {
@@ -134,7 +134,7 @@ window.PRACTICUM = {
       section: 2,
       seminars: [4, 7],
       pdf: "https://disk.yandex.ru/i/gMdqD9S_WjZ-gw",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-08.pdf",
       desc: ""
     },
     {
@@ -146,7 +146,7 @@ window.PRACTICUM = {
       section: 3,
       seminars: [3, 5],
       pdf: "https://disk.yandex.ru/i/C7GB2ISmW-TXug",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-09.pdf",
       desc: ""
     },
     {
@@ -158,7 +158,7 @@ window.PRACTICUM = {
       section: 3,
       seminars: [8],
       pdf: "https://disk.yandex.ru/i/13T9f2R6HKL7Dg",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-10.pdf",
       desc: ""
     },
     {
@@ -170,7 +170,7 @@ window.PRACTICUM = {
       section: 3,
       seminars: [6],
       pdf: "https://disk.yandex.ru/i/86G6nWbzrdatcw",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-11.pdf",
       desc: ""
     },
     {
@@ -182,7 +182,7 @@ window.PRACTICUM = {
       section: 3,
       seminars: [7, 8],
       pdf: "https://disk.yandex.ru/i/_q_jgPQT2JYDSA",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-12.pdf",
       desc: ""
     },
     {
@@ -194,7 +194,7 @@ window.PRACTICUM = {
       section: 4,
       seminars: [8],
       pdf: "https://disk.yandex.ru/i/czCQkC0jb4594w",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-13.pdf",
       desc: ""
     },
     {
@@ -206,7 +206,7 @@ window.PRACTICUM = {
       section: 4,
       seminars: [3, 5],
       pdf: "https://disk.yandex.ru/i/dZ5nNEcma3fo6A",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-14.pdf",
       desc: ""
     },
     {
@@ -218,7 +218,7 @@ window.PRACTICUM = {
       section: 4,
       seminars: [9, 10],
       pdf: "https://disk.yandex.ru/i/r4x0Dy22CpqsHw",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-15.pdf",
       desc: ""
     },
     {
@@ -230,7 +230,7 @@ window.PRACTICUM = {
       section: 4,
       seminars: [11],
       pdf: "https://disk.yandex.ru/i/dT9QwyPPDCCM3A",
-      pdfLocal: "",
+      pdfLocal: "pdf/lab-16.pdf",
       desc: ""
     }
   ],
