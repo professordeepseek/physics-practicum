@@ -253,7 +253,7 @@ window.PRACTICUM = {
 
   /* --- Инструменты ------------------------------------------------------ */
   tools: [
-    { name: "Алиса (YandexGPT)",   note: "Основной инструмент для промпт-инжиниринга",        cat: "Текстовые нейросети", url: "https://alice.yandex.ru" },
+    { name: "YandexGPT",   note: "Основной инструмент для промпт-инжиниринга",        cat: "Текстовые нейросети", url: "https://alice.yandex.ru" },
     { name: "GigaChat",    note: "Альтернатива от Сбера",                             cat: "Текстовые нейросети", url: "https://giga.chat" },
     { name: "DeepSeek",    note: "Пошаговые рассуждения, физика и код",                cat: "Текстовые нейросети", url: "https://chat.deepseek.com" },
     { name: "Qwen",        note: "Мультимодальность: разбор фотографии решения",       cat: "Текстовые нейросети", url: "https://chat.qwen.ai" },
