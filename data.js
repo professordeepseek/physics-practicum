@@ -259,7 +259,7 @@ window.PRACTICUM = {
     { name: "Qwen",        note: "Мультимодальность: разбор фотографии решения",       cat: "Текстовые нейросети", url: "https://chat.qwen.ai" },
     { name: "Kimi",        note: "Работа с длинными документами",                      cat: "Текстовые нейросети", url: "https://kimi.ai" },
     { name: "Kandinsky",   note: "Генерация изображений",                              cat: "Нейрографика",        url: "https://fusionbrain.ai" },
-    { name: "YandexART",   note: "Альтернатива Kandinsky",                             cat: "Нейрографика",        url: "https://art.yandex.ru" },
+    { name: "Алиса (YandexART)", note: "Генерация изображений внутри Алисы", cat: "Нейрографика", url: "https://alice.yandex.ru" },
     { name: "Шедеврум",    note: "Генератор изображений от Яндекса",                   cat: "Нейрографика",        url: "https://shedevrum.ai" },
     { name: "Leonardo AI", note: "Научные иллюстрации, тонкая настройка",              cat: "Нейрографика",        url: "https://leonardo.ai" },
     { name: "Jimeng AI",   note: "Китайский генератор изображений",                     cat: "Нейрографика",        url: "https://jimeng.jianying.com" },
